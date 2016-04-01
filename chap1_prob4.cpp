@@ -39,7 +39,7 @@ int main()
 		std::cout << word[i];
 	}
 	std::cout << "\n";
-    replaceSpaces(word, 8);
+        replaceSpaces(word, 8);
 	for (int i = 0; i < 13; i++){
 		std::cout << word[i];
 	}
