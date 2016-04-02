@@ -22,12 +22,9 @@ void rotate2DArray(std::vector<std::vector<int>> &TwoDArray, int layers)
 		for (int j = i; j < last; j++){
 			int offset = j - i;
 			int temp = TwoDArray[i][j];
-			int temp2 = TwoDArray[(last - offset)][i];
 			TwoDArray[i][j] = TwoDArray[(last-offset)][i];
 			TwoDArray[(last - offset)][i] = TwoDArray[last][last-offset];
-			int temp3 = TwoDArray[last][last - offset];
 			TwoDArray[last][last - offset] = TwoDArray[j][last];
-			int temp4 = TwoDArray[j][last];
 			TwoDArray[j][last] = temp;
 
 
