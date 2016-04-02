@@ -4,22 +4,6 @@
 #include <random>
 //#include <algorithm>
 #include <functional>
-  
-void rotate2DArray(std::vector<std::vector<int>> &TwoDArray, int layers)
-{
-	for (int i = 0; i < layers / 2; i++){
-		int last = layers - 1 - i;
-		for (int j = i; j < last; j++){
-			int offset = j - i;
-			int temp = TwoDArray[i][j];
-			TwoDArray[i][j] = TwoDArray[(last-offset)][i];
-			TwoDArray[(last - offset)][i] = TwoDArray[last][last-offset];
-			TwoDArray[last][last - offset] = TwoDArray[j][last];
-			TwoDArray[j][last] = temp;
-		}
-	}
-}
-
 
 int numDigits(int number)
 {
@@ -30,6 +14,43 @@ int numDigits(int number)
 	}
 	return digits;
 }
+  
+void rotate2DArray(std::vector<std::vector<int>> &TwoDArray, int layers)
+{
+	for (int i = 0; i < layers / 2; i++){
+		int last = layers - 1 - i;
+		for (int j = i; j < last; j++){
+			int offset = j - i;
+			int temp = TwoDArray[i][j];
+			int temp2 = TwoDArray[(last - offset)][i];
+			TwoDArray[i][j] = TwoDArray[(last-offset)][i];
+			TwoDArray[(last - offset)][i] = TwoDArray[last][last-offset];
+			int temp3 = TwoDArray[last][last - offset];
+			TwoDArray[last][last - offset] = TwoDArray[j][last];
+			int temp4 = TwoDArray[j][last];
+			TwoDArray[j][last] = temp;
+
+
+
+
+			for (int k = 0; k < layers; k++){
+				for (int l = 0; l < layers; l++){
+					if (numDigits(TwoDArray[k][l]) == 1){
+						std::cout << "  " << TwoDArray[k][l];
+					}
+					else{
+						std::cout << " " << TwoDArray[k][l];
+					}
+				}
+				std::cout << "\n";
+			}
+			std::cout << "\n";
+		}
+	}
+}
+
+
+
 
 
 int main()
