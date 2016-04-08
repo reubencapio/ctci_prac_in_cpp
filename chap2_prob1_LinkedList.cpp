@@ -8,26 +8,24 @@ LinkedList::LinkedList()
 
 LinkedList::~LinkedList()
 {
-	Node* current = head;
-
-	while (current != 0)
+	Node *current = head;
+	while(current != nullptr)
 	{
-		Node* next = current->next;
+		Node *next = current->next;
 		delete current;
 		current = next;
 	}
-
 	head = nullptr;
 }
 
 void LinkedList::insert(int value)
 {
-	if (head == nullptr)
+	if(head == nullptr)
 	{
 		head = new Node();
-		tail = head;
-		head->next = nullptr;
 		head->data = value;
+		head->next = nullptr;
+		tail = head;
 	}
 	else
 	{
@@ -40,20 +38,18 @@ void LinkedList::insert(int value)
 
 void LinkedList::display()
 {
-	Node* temp;
-
-	if (head == nullptr)
+	if(head == nullptr)
 	{
 		return;
 	}
 
-	temp = head;
+	Node *temp = head;
 
-	while (temp != nullptr)
+	while(temp != nullptr)
 	{
-		std::cout << temp->data << ' ';
+		std::cout << temp->data << " ";
 		temp = temp->next;
 	}
 
-	std::cout << std::endl;
+	std::cout << "\n";
 }
