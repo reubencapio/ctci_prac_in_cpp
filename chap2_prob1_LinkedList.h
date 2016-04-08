@@ -7,11 +7,11 @@ struct Node
 class LinkedList
 {
 public:
+	Node* tail;
 	Node* head;
 	LinkedList();
 	~LinkedList();
 	void display();
 	void insert(int value);
-private:
-	Node* tail;
+
 };
