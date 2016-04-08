@@ -1,21 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <list>
+#include "LinkedList.h"
 
-struct Node
-{
-	int data;
-	Node* next;
-};
-
-class LinkedList
-{
-public:
-	Node* head;
-};
-
-void removeDuplicates(LinkedList a_list)
+void removeDuplicates(LinkedList *a_list)
 {
 
 }
@@ -23,6 +11,11 @@ void removeDuplicates(LinkedList a_list)
 
 int main()
 {
-	LinkedList a_list = new LinkedList();
+	LinkedList *a_list = new LinkedList();
+	a_list->insert(1);
+	a_list->insert(3);
+	a_list->insert(3);
+	a_list->insert(5);
+	a_list->display();
 	removeDuplicates(a_list);
 }
