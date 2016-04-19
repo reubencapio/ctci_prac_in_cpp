@@ -2,48 +2,88 @@
 #include <unordered_set>
 #include "LinkedList.h"
 
-//not done!! please finish
 
-
-void arrangeList(Node *head, int mid)
+Node* arrangeList(Node *node, int mid)
 {
-	if (nullptr == head || nullptr == head->next) {
-		return;
+	if (nullptr == node || nullptr == node->next) {
+		return nullptr;
 	}
 
-	Node *headrunner = head;;
-	Node *lowerrunner = nullptr;
-	Node *lowerstart = nullptr;
-	Node *higherrunner = nullptr;
-	Node *higherstart = nullptr;
+	Node * beforeStart = nullptr;;
+	Node *beforeEnd = nullptr;
+	Node *afterStart = nullptr;
+	Node *afterEnd = nullptr;
 
-	while (nullptr != headrunner) {
-		Node *next = head->next;
-		head->next = nullptr;
-		if (headrunner->data >= mid) {
-			if (nullptr == higherstart) {
-				higherstart = head;
-				higherrunner = higherstart;
+
+	while (nullptr != node) {
+		Node *next = node->next;
+		node->next = nullptr;
+		if (node->data < mid) {
+			if (nullptr == beforeStart) {
+				beforeStart = node;
+				beforeEnd = beforeStart;
 			} else{
-				higherrunner->next = head->next;
-				higherrunner = head;
+				beforeEnd->next = node;
+				beforeEnd = node;
 			}
 
 		} else {
-			lowerrunner = headrunner;
-			if (nullptr == lowerstart) {
-				lowerstart = headrunner;
+			if (nullptr == afterStart) {
+				afterStart = node;
+				afterEnd = afterStart;
+			} else {
+				afterEnd->next = node;
+				afterEnd = node;
 			}
-			headrunner = headrunner->next;
-			lowerrunner = lowerrunner->next;
 		}
+		node = next;
 	}
-	higherrunner->next = lowerrunner;
-	head = higherrunner;
+	if (nullptr == beforeStart) {
+		return afterStart;
+	}
+	beforeEnd->next = afterStart;
+	return beforeStart;
 }
 
 
+Node* partition(Node* head, int val)
+{
+	if (head == NULL)
+	{
+		return nullptr;
+	}
 
+	LinkedList* upper = new LinkedList();
+	LinkedList* lower = new LinkedList();
+	Node* current = head;
+
+	while (current)
+	{
+		if (current->data < val)
+		{
+			lower->insert(current->data);
+		}
+		else
+		{
+			upper->insert(current->data);
+		}
+
+		current = current->next;
+	}
+
+	// reset current back to the head
+	current = lower->head;
+	Node* lowNode = lower->head;
+
+	// find the end of the lower list
+	while (lowNode->next)
+	{
+		lowNode = lowNode->next;
+	}
+	lowNode->next = upper->head;
+
+	return current;
+}
 
 int main()
 {
@@ -54,6 +94,9 @@ int main()
 	a_list->insert(8);
 	a_list->insert(3);
 	a_list->display();
-	arrangeList(a_list->head, 5);
-	a_list->display();
+	LinkedList *a_list2 = new LinkedList();
+	a_list2->head = arrangeList(a_list->head, 5);
+	a_list2->display();
+	delete a_list2;
+	return 0;
 }
