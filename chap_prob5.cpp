@@ -1,12 +1,25 @@
 #include "LinkedList.h"
 #include <iostream>
 
-Node* addList(Node* first, Node* second)
+void addList(Node* first, Node* second)
 {
 	if (first == nullptr || second == nullptr) {
-		return nullptr;
+		return;
 	}
-	LinkedList* result = new LinkedList();
+
+	Node* list1 = first;
+	Node* list2 = second;
+	int length1 = lengthList(list1);
+	int length2 = lengthList(list2);
+	if (length1 > length2) {
+		padlist(list2, length1 - length2);
+	}
+
+	if (length2 > length1) {
+		padlist(list1, length2 - length1);
+	}
+
+
 	while (first->next != nullptr && second->next != nullptr) {
 
 		int sum = first->data + second->data;
@@ -14,7 +27,8 @@ Node* addList(Node* first, Node* second)
 			sum = sum % 10;
 			result->insert(sum);
 			sum = sum / 10;
-		}else{
+		}
+		else {
 			result->insert(sum);
 		}
 		first = first->next;
@@ -27,7 +41,7 @@ int lengthList(Node* head)
 {
 	int count = 0;
 	Node* current = head;
-	while (current->next !=nullptr) {
+	while (current->next != nullptr) {
 		count++;
 		current = current->next;
 	}
@@ -36,10 +50,23 @@ int lengthList(Node* head)
 
 void padlist(Node* list, int pad)
 {
+	if (nullptr == list) {
+		return;
+	}
 
+	int ctr = 0;
+	Node* temp = list;
+	while (temp->next != nullptr) {
+		temp = temp->next;
+	}
 
-
-
+	while(ctr != pad) {
+		temp->next = new Node();
+		temp = temp->next;
+		temp->data = 0;
+		temp->next = nullptr;
+		ctr++;
+	}
 }
 
 int main()
