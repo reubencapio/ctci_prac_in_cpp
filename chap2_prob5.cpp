@@ -1,12 +1,17 @@
 #include "LinkedList.h"
 #include <iostream>
 
+int lengthList(Node* head);
+void padlist(Node* list, int pad);
+
 void addList(Node* first, Node* second)
 {
 	if (first == nullptr || second == nullptr) {
 		return;
 	}
 
+	int carry = 0;
+	int val = 0;
 	Node* list1 = first;
 	Node* list2 = second;
 	int length1 = lengthList(list1);
@@ -20,21 +25,35 @@ void addList(Node* first, Node* second)
 	}
 
 
-	while (first->next != nullptr && second->next != nullptr) {
+	while (list1 || second) {
 
-		int sum = first->data + second->data;
-		if (sum >= 10) {
-			sum = sum % 10;
-			result->insert(sum);
-			sum = sum / 10;
+		list1->data += carry;
+		val = list1->data + list2->data;
+		if (val > 10) {
+			carry = 1;
+			val = val - 10;
 		}
 		else {
-			result->insert(sum);
+			carry = 0;
 		}
-		first = first->next;
-		second = second->next;
+		list1->data = val;
+		list1 = list1->next;
+		list2 = list2->next;
 	}
-	return result->head;
+	// if the final digit had a carry we need to add one to the end
+	if (carry)
+	{
+		// reset the head and find the last element
+		first = list1;
+		while (list1->next)
+		{
+			list1 = list1->next;
+		}
+
+		list1->next = new Node();
+		list1->next->data = 1;
+		list1->next->next = nullptr;
+	}
 }
 
 int lengthList(Node* head)
@@ -60,7 +79,7 @@ void padlist(Node* list, int pad)
 		temp = temp->next;
 	}
 
-	while(ctr != pad) {
+	while (ctr != pad) {
 		temp->next = new Node();
 		temp = temp->next;
 		temp->data = 0;
@@ -79,7 +98,6 @@ int main()
 	second->insert(6);
 	second->insert(5);
 	second->insert(4);
-	LinkedList* sum = new LinkedList();
-	sum->head = addList(first->head, second->head);
-	sum->display();
+	addList(first->head, second->head);
+	first->display();
 }
