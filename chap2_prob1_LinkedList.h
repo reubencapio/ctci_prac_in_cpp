@@ -13,5 +13,6 @@ public:
 	~LinkedList();
 	void display();
 	void insert(int value);
+	void createCycle();
 
 };
