@@ -18,6 +18,11 @@ LinkedList::~LinkedList()
 	head = nullptr;
 }
 
+void LinkedList::createCycle()
+{
+    tail->next = head->next;  
+}
+
 void LinkedList::insert(int value)
 {
 	if(head == nullptr)
