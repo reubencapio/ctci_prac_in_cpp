@@ -14,9 +14,5 @@ class LinkedList
 	void display();
 	void insert(int value);
 	void createCycle();
-	
-   private:
-        // added this so insertion is O(1) time
-        Node* tail;
 
 };
